@@ -1,0 +1,11 @@
+cron:
+    - description: "analyze engine"
+      url: /analyze
+      schedule: every 24 hours
+    - description: "buy engine"
+      url: /buy
+      schedule: every 60 seconds
+    - description: "sell engine"
+      url: /sell
+      schedule: every 60 seconds
+    

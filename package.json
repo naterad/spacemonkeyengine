@@ -1,0 +1,19 @@
+{
+    "name": "SpaceMonkeyEngine",
+    "version": "1.0.0",
+    "description": "Space Monkey Engine",
+    "scripts": {
+        "deploy": "gcloud app deploy",
+        "start": "node src/app.js"
+    },
+    "dependencies": {
+        "@google-cloud/datastore": "^1.3.5",
+        "body-parser": "^1.18.2",
+        "ccxt": "^1.11.12",
+        "express": "~4.13.4",
+        "firebase-admin": "^5.9.1",
+        "lodash": "^4.17.5",
+        "sentiment": "^4.2.0"
+    },
+    "devDependencies": {}
+}
