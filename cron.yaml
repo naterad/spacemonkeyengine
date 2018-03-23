@@ -1,14 +1,17 @@
 cron:
     - description: "analyze engine"
       url: /analyze
-      schedule: every 24 hours
+      timezone: America/Detroit
+      schedule: every 60 minutes from 10:00 to 16:00
     - description: "buy engine"
       url: /buy
-      schedule: every 60 seconds
+      timezone: America/Detroit
+      schedule: every 60 seconds from 9:30 to 16:00
     - description: "sell engine"
       url: /sell
-      schedule: every 60 seconds
+      timezone: America/Detroit
+      schedule: every 60 seconds from 9:30 to 16:00
     
 
-      timezone: America/Detroit
-      schedule: every 5 minutes from 10:00 to 14:00
+      
+      
