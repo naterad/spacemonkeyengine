@@ -9,3 +9,6 @@ cron:
       url: /sell
       schedule: every 60 seconds
     
+
+      timezone: America/Detroit
+      schedule: every 5 minutes from 10:00 to 14:00
