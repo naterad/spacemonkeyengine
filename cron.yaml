@@ -3,10 +3,6 @@ cron:
       url: /slope
       timezone: America/Detroit
       schedule: every 60 minutes from 10:00 to 16:00
-    - description: "buy engine"
-      url: /buy
-      timezone: America/Detroit
-      schedule: every 1 mins from 09:30 to 16:00
     - description: "sell engine"
       url: /sell
       timezone: America/Detroit
