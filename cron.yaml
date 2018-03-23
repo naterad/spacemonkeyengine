@@ -6,11 +6,11 @@ cron:
     - description: "buy engine"
       url: /buy
       timezone: America/Detroit
-      schedule: every 1 min from 9:30 to 16:00
+      schedule: every 1 min from 09:30 to 16:00
     - description: "sell engine"
       url: /sell
       timezone: America/Detroit
-      schedule: every 1 min from 9:30 to 16:00
+      schedule: every 1 min from 09:30 to 16:00
     
 
       
