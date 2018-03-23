@@ -209,8 +209,7 @@ function sendMessage(stocks) {
     // console.log(stocks);
     const msg = {
         message: formatMessage(stocks),	// required
-        device: 'nates-iphone',
-        priority: 1
+        device: 'nates-iphone'
     }
     p.send(msg, ( err, result ) => {
         if ( err ) {
