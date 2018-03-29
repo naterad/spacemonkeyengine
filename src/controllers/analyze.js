@@ -24,7 +24,10 @@ async function slope(req, res) {
         const fields = ['stock', 'close', 'change_percent', 'change_value', 'rating', 'volume', 'market_cap', 'price_to_earning', 'EPS_basic', 'EMP', 'sector'];
         const url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/';
         let html = await getWebpage(url);
+        // sendRawMessage(html);
         let stocks = [];
+        let stockList = [];
+        let stockListVolume = [];
         let minPercentOff = 10000;
         let minPercentStock = '';
         let regex = /class=\Dtv-screener__symbol\D href=\D\Dsymbols/gi, result, indices = [];
@@ -38,6 +41,8 @@ async function slope(req, res) {
             let stockChunck = chunck.substring(stockStart + 1);
             var stockEnd = stockChunck.indexOf("</a>");
             var stock = stockChunck.substring(0, stockEnd);
+            // console.log(stock);
+            stockList.push(stock);
             stockObj[fields[0]] = stock;
 
             let regex2 = /<td /gi, result2, indices2 = [];
@@ -82,6 +87,7 @@ async function slope(req, res) {
             // console.log(volume);
             if(volume > 150000) { // ADD TO CONFIG
                 stockObj.volume = volume;
+                stockListVolume.push(stock);
                 try {
                     // const summary = await api.quoteSummary(stock);
                     // console.log(summary.quoteSummary.result);
@@ -114,9 +120,13 @@ async function slope(req, res) {
                 }
             }
         }
-        // console.log(indices.length);
-        // console.log(stocks);
+        
+        sendRawMessage('ALL('+stockList.length+'): ' + JSON.stringify(stockList));
+        // sendRawMessage('HIGH VOLUME('+stockListVolume.length+'): ' + JSON.stringify(stockListVolume));
+        // sendMessage(stocks);
         const sorted = stocks.sort(compare);
+        const sortedStockNames = extractNames(sorted);
+        sendRawMessage('HIGH VOLUME SORTED('+sortedStockNames.length+'): ' + JSON.stringify(sortedStockNames));
         // SAVE THESE SORTED STOCKS
         // console.log(sorted);
         const topSorted = sorted.slice(0, 5); // CONFIG
@@ -138,6 +148,14 @@ async function slope(req, res) {
     } catch (error) {
         res.status(500).send({'error': error});
     }
+}
+
+function extractNames(sorted) {
+    let names = [];
+    for(let stock of sorted) {
+        names.push(stock.stock);
+    }
+    return names;
 }
 
 function compare(a,b) {
@@ -203,6 +221,18 @@ function analyzeData(data, time) {
         dayPercentDiff: dayPercentDiff,
         range: time
     }
+}
+
+function sendRawMessage(str) {
+    const msg = {
+        message: str,	// required
+        device: 'nates-iphone'
+    }
+    p.send(msg, ( err, result ) => {
+        if ( err ) {
+          throw err
+        }
+    })
 }
 
 function sendMessage(stocks) {
